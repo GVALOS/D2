@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Nuevo Expediente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Nuevo Expediente</h1>
+
+        <!-- Muestra un mensaje de error si falta algún campo -->
+        {% if error %}
+            <div class="alert-error" style="color: red; margin-bottom: 15px;">
+                <p>{{ error }}</p>
+            </div>
+        {% endif %}
+
+        <form action="{{ url_for('nuevo_empleado') }}" method="POST">
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="nombre_completo">Nombre Completo:</label><br>
+                <input type="text" id="nombre_completo" name="nombre_completo" value="{{ nombre_completo if nombre_completo else '' }}" placeholder="Ej. Juan Pérez" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="dui">DUI:</label><br>
+                <input type="text" id="dui" name="dui" value="{{ dui if dui else '' }}" placeholder="Ej. 00000000-0" required style="width: 100%; padding: 8px;">
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="estado_dui">Estado DUI:</label><br>
+                <select id="estado_dui" name="estado_dui" required style="width: 100%; padding: 8px;">
+                    <option value="">Seleccione...</option>
+                    <option value="Entregado" {% if estado_dui == 'Entregado' %}selected{% endif %}>Entregado</option>
+                    <option value="Pendiente" {% if estado_dui == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="estado_antecedentes">Estado Antecedentes:</label><br>
+                <select id="estado_antecedentes" name="estado_antecedentes" required style="width: 100%; padding: 8px;">
+                    <option value="">Seleccione...</option>
+                    <option value="Entregado" {% if estado_antecedentes == 'Entregado' %}selected{% endif %}>Entregado</option>
+                    <option value="Pendiente" {% if estado_antecedentes == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 10px;">
+                <label for="estado_carnet_junta">Estado Carnet Junta:</label><br>
+                <select id="estado_carnet_junta" name="estado_carnet_junta" required style="width: 100%; padding: 8px;">
+                    <option value="">Seleccione...</option>
+                    <option value="Entregado" {% if estado_carnet_junta == 'Entregado' %}selected{% endif %}>Entregado</option>
+                    <option value="Pendiente" {% if estado_carnet_junta == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+                <label for="observaciones">Observaciones:</label><br>
+                <input type="text" id="observaciones" name="observaciones" value="{{ observaciones if observaciones else '' }}" placeholder="Observaciones adicionales" style="width: 100%; padding: 8px;">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" style="padding: 10px 15px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Guardar Registro</button>
+                <a href="{{ url_for('listar_empleados') }}" style="margin-left: 10px; text-decoration: none; color: #333;">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
